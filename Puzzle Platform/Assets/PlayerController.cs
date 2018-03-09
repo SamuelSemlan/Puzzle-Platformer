@@ -10,10 +10,6 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] float movementSpeed;
     [SerializeField] float jumpingForce;
 
-    [Header("Other")]
-    public LayerMask groundLayer;
-    public CapsuleCollider col;
-
 	
 	void Start () {
         rb = GetComponent<Rigidbody>();
@@ -37,16 +33,9 @@ public class PlayerController : MonoBehaviour {
         rb.MovePosition(rb.position + velocity * Time.deltaTime);
     }
 
-
-    private bool IsGrounded()
-    {
-        return Physics.CheckCapsule(col.bounds.center, new Vector3(col.bounds.center.x,
-         col.bounds.min.y, col.bounds.center.z), col.radius * .2f, groundLayer);
-    }
-
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             rb.AddForce(Vector3.up * jumpingForce * Time.deltaTime, ForceMode.Impulse);
         }
